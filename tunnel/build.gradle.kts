@@ -51,6 +51,17 @@ android {
         disable += "LongLogTag"
         disable += "NewApi"
     }
+    // https://arulmani33.medium.com/change-apk-name-in-android-gradle-8-1-kts-97c55fcaaa27
+    libraryVariants.all {
+        outputs.map { o -> o as com.android.build.gradle.internal.api.LibraryVariantOutputImpl }
+            .forEach { f ->
+                val typeSuffix = if (buildType.name == "debug") "-debug" else ""
+                f.outputFileName = "awg-tunnel" +
+                        "-${file("tunnel-version").readText()}" +
+                        typeSuffix +
+                        ".aar"
+            }
+    }
 }
 
 dependencies {
