@@ -13,3 +13,9 @@ $ ./gradlew assembleRelease
 ```
 
 macOS users may need [flock(1)](https://github.com/discoteq/flock).
+
+## Publish tunnel library to demo maven repository
+
+```
+$ ./gradlew publishReleaseToDemoRepository
+```
