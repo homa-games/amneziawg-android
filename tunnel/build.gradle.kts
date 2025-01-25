@@ -7,6 +7,7 @@ val cmakeAndroidPackageName: String = providers.environmentVariable("ANDROID_PAC
 
 plugins {
     alias(libs.plugins.android.library)
+    id("maven-publish")
 }
 
 android {
@@ -62,6 +63,11 @@ android {
                         ".aar"
             }
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
@@ -69,4 +75,24 @@ dependencies {
     implementation(libs.androidx.collection)
     compileOnly(libs.jsr305)
     testImplementation(libs.junit)
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = pkg
+            artifactId = "awg-tunnel"
+            version = file("tunnel-version").readText()
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "demo"
+            url = uri("../demorepo")
+        }
+    }
 }
