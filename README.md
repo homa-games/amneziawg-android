@@ -14,8 +14,23 @@ $ ./gradlew assembleRelease
 
 macOS users may need [flock(1)](https://github.com/discoteq/flock).
 
-## Publish tunnel library to demo maven repository
+## Publish and use
 
+[Documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry)
+
+Publish artifacts
 ```
-$ ./gradlew publishReleaseToDemoRepository
+$ ./gradlew publish
+```
+
+Use repo
+```
+maven {
+    name = "GitHubPackages"
+    url = uri("https://maven.pkg.github.com/homa-games/amneziawg-android")
+    credentials {
+        username = GITHUB_USERNAME
+        password = GITHUB_TOKEN
+    }
+}
 ```

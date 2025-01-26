@@ -1,9 +1,11 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val pkg: String = providers.gradleProperty("amneziawgPackageName").get()
 val cmakeAndroidPackageName: String = providers.environmentVariable("ANDROID_PACKAGE_NAME").getOrElse(pkg)
+val localProperties = gradleLocalProperties(rootDir, providers)
 
 plugins {
     alias(libs.plugins.android.library)
@@ -89,9 +91,14 @@ publishing {
         }
     }
     repositories {
+        // https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry
         maven {
-            name = "demo"
-            url = uri("../demorepo")
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/homa-games/amneziawg-android")
+            credentials {
+                username = localProperties.getProperty("gpr.user")
+                password = localProperties.getProperty("gpr.key")
+            }
         }
     }
 }
