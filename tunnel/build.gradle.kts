@@ -56,10 +56,9 @@ android {
     libraryVariants.all {
         outputs.map { o -> o as com.android.build.gradle.internal.api.LibraryVariantOutputImpl }
             .forEach { f ->
-                val typeSuffix = if (buildType.name == "debug") "-debug" else ""
                 f.outputFileName = "awg-tunnel" +
                         "-${file("tunnel-version").readText()}" +
-                        typeSuffix +
+                        "-${buildType.name}" +
                         ".aar"
             }
     }
