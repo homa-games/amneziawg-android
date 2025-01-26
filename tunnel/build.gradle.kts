@@ -91,14 +91,9 @@ publishing {
         }
     }
     repositories {
-        // https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/homa-games/amneziawg-android")
-            credentials {
-                username = localProperties.getProperty("gpr.user")
-                password = localProperties.getProperty("gpr.key")
-            }
+            name = "demo"
+            url = uri("../demorepo")
         }
     }
 }

@@ -20,17 +20,10 @@ macOS users may need [flock(1)](https://github.com/discoteq/flock).
 
 Publish artifacts
 ```
-$ ./gradlew publish
+$ ./gradlew publishReleaseToDemoRepository
 ```
 
 Use repo
 ```
-maven {
-    name = "GitHubPackages"
-    url = uri("https://maven.pkg.github.com/homa-games/amneziawg-android")
-    credentials {
-        username = GITHUB_USERNAME
-        password = GITHUB_TOKEN
-    }
-}
+maven("https://github.com/homa-games/amneziawg-android/raw/repository/demorepo")
 ```
