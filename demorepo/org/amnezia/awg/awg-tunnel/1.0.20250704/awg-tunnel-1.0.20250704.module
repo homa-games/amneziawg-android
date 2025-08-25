@@ -1,0 +1,94 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.amnezia.awg",
+    "module": "awg-tunnel",
+    "version": "1.0.20250704",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.5"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "awg-tunnel-1.0.20250704.aar",
+          "url": "awg-tunnel-1.0.20250704.aar",
+          "size": 6017012,
+          "sha512": "846718bfe3df8a4001c88d72b1e74d76675d4624d6aa1fe83821b58019885629374650426c54e39744f4b58bd755a739d1ee01adf7bb2406b4ea5cd313ca4bd4",
+          "sha256": "acc8f5938ecef01c7dffd502782053b699c9792e2dd99d1e8e1ec59a9a885d99",
+          "sha1": "1a1935ba1c283a52f13cc81951a7c0805a1b03d2",
+          "md5": "0ded70da57592eb40e0a000c218743e6"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.7.1"
+          }
+        },
+        {
+          "group": "androidx.collection",
+          "module": "collection",
+          "version": {
+            "requires": "1.4.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "awg-tunnel-1.0.20250704.aar",
+          "url": "awg-tunnel-1.0.20250704.aar",
+          "size": 6017012,
+          "sha512": "846718bfe3df8a4001c88d72b1e74d76675d4624d6aa1fe83821b58019885629374650426c54e39744f4b58bd755a739d1ee01adf7bb2406b4ea5cd313ca4bd4",
+          "sha256": "acc8f5938ecef01c7dffd502782053b699c9792e2dd99d1e8e1ec59a9a885d99",
+          "sha1": "1a1935ba1c283a52f13cc81951a7c0805a1b03d2",
+          "md5": "0ded70da57592eb40e0a000c218743e6"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "awg-tunnel-1.0.20250704-sources.jar",
+          "url": "awg-tunnel-1.0.20250704-sources.jar",
+          "size": 44813,
+          "sha512": "76835606c12d0211364bf1353a1674b35e1f657dc3d64aa57bc105dc90983a6c58d2392635c9313f529ac6f09608a8216df431cbcb924b6f94a483dbc942f6b7",
+          "sha256": "7588fae3c206ca0b8d83aadafa272988c9d59b7c180d165b4c20d0e74aff541d",
+          "sha1": "2e16a1e58655518925e5795062c2ad9d13cba68f",
+          "md5": "28382ad80f6aec702071d014bd72f6a9"
+        }
+      ]
+    }
+  ]
+}
