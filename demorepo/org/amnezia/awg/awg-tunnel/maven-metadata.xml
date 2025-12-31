@@ -3,14 +3,15 @@
   <groupId>org.amnezia.awg</groupId>
   <artifactId>awg-tunnel</artifactId>
   <versioning>
-    <latest>1.0.20250903</latest>
-    <release>1.0.20250903</release>
+    <latest>1.0.20251231</latest>
+    <release>1.0.20251231</release>
     <versions>
       <version>1.0.20241018</version>
       <version>1.0.20240213</version>
       <version>1.0.20250704</version>
       <version>1.0.20250903</version>
+      <version>1.0.20251231</version>
     </versions>
-    <lastUpdated>20250904101812</lastUpdated>
+    <lastUpdated>20251231124553</lastUpdated>
   </versioning>
 </metadata>
