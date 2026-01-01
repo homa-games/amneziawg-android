@@ -1,11 +1,9 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
-val pkg: String = providers.gradleProperty("amneziawgPackageName").get()
-val cmakeAndroidPackageName: String = providers.environmentVariable("ANDROID_PACKAGE_NAME").getOrElse(pkg)
-val localProperties = gradleLocalProperties(rootDir, providers)
+val packageName: String = providers.gradleProperty("amneziawgPackageName").get()
+val tunnelVersion: String = providers.gradleProperty("tunnelVersion").get()
 
 plugins {
     alias(libs.plugins.android.library)
@@ -17,7 +15,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    namespace = "${pkg}.tunnel"
+    namespace = "${packageName}.tunnel"
     externalNativeBuild {
         cmake {
             path("tools/CMakeLists.txt")
@@ -38,14 +36,14 @@ android {
         release {
             externalNativeBuild {
                 cmake {
-                    arguments("-DANDROID_PACKAGE_NAME=${cmakeAndroidPackageName}")
+                    arguments("-DANDROID_PACKAGE_NAME=${packageName}")
                 }
             }
         }
         debug {
             externalNativeBuild {
                 cmake {
-                    arguments("-DANDROID_PACKAGE_NAME=${cmakeAndroidPackageName}.debug")
+                    arguments("-DANDROID_PACKAGE_NAME=${packageName}.debug")
                 }
             }
         }
@@ -58,10 +56,7 @@ android {
     libraryVariants.all {
         outputs.map { o -> o as com.android.build.gradle.internal.api.LibraryVariantOutputImpl }
             .forEach { f ->
-                f.outputFileName = "awg-tunnel" +
-                        "-${file("tunnel-version").readText()}" +
-                        "-${buildType.name}" +
-                        ".aar"
+                f.outputFileName = "awg-tunnel-${tunnelVersion}-${buildType.name}.aar"
             }
     }
     publishing {
@@ -81,9 +76,9 @@ dependencies {
 publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = pkg
+            groupId = packageName
             artifactId = "awg-tunnel"
-            version = file("tunnel-version").readText()
+            version = tunnelVersion
 
             afterEvaluate {
                 from(components["release"])
