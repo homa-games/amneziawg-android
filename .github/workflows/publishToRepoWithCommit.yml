@@ -1,0 +1,63 @@
+name: Release new version in repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Override tunnelVersion'
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build aar
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "Building with version ${{ github.event.inputs.version }}"
+            ./gradlew publishReleasePublicationToDemoRepository -PTUNNEL_VERSION=${{ github.event.inputs.version }}
+          else
+            echo "No version provided, using default from gradle.properties $(grep 'tunnelVersion=' gradle.properties | cut -d '=' -f2)"
+            ./gradlew publishReleasePublicationToDemoRepository
+          fi
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit artifacts and create tag
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "Building with version ${{ github.event.inputs.version }}"
+            VERSION=${{ github.event.inputs.version }}
+          else
+            echo "No version provided, using default from gradle.properties $(grep 'tunnelVersion=' gradle.properties | cut -d '=' -f2)"
+            VERSION=$(grep 'tunnelVersion=' gradle.properties | cut -d '=' -f2)
+          fi
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "commit with version ${VERSION}"
+            git add .
+            git commit -m "awg-tunnel ${VERSION}"
+            git push
+            TAG="tunnel-${VERSION}"
+            git tag $TAG
+            git push origin $TAG
+          else
+            echo "No changes to commit"
+          fi
