@@ -95,10 +95,12 @@ publishing {
 }
 
 tasks.register("syncReadme") {
-    doLast {
-        val readmeFile = file("../README.md")
-        val tunnelVersion = providers.gradleProperty("tunnelVersion").get()
+    val readmeFile = file("../README.md")
+    val tunnelVersion = providers.gradleProperty("tunnelVersion").get()
+    inputs.property("tunnelVersion", tunnelVersion)
+    outputs.file(readmeFile)
 
+    doLast {
         val updatedLines = readmeFile.readLines().map { line ->
             if (line.startsWith("implementation")) {
                 "implementation(\"org.amnezia.awg:awg-tunnel:${tunnelVersion}\")"
