@@ -2,6 +2,12 @@ name: Assemble library
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Override tunnelVersion'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build:
@@ -21,7 +27,14 @@ jobs:
           java-version: '21'
 
       - name: Build aar
-        run: ./gradlew tunnel:assembleRelease
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "Building with version ${{ github.event.inputs.version }}"
+            ./gradlew tunnel:assembleRelease -PTUNNEL_VERSION=${{ github.event.inputs.version }}
+          else
+            echo "No version provided, using default from gradle.properties"
+            ./gradlew tunnel:assembleRelease
+          fi
 
       - name: Upload library
         uses: actions/upload-artifact@v6

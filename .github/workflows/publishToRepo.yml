@@ -2,6 +2,12 @@ name: Publish new library version
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Override tunnelVersion'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build:
@@ -21,7 +27,14 @@ jobs:
           java-version: '21'
 
       - name: Build aar
-        run: ./gradlew publishReleaseToDemoRepository
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "Building with version ${{ github.event.inputs.version }}"
+            ./gradlew publishReleasePublicationToDemoRepository -PTUNNEL_VERSION=${{ github.event.inputs.version }}
+          else
+            echo "No version provided, using default from gradle.properties"
+            ./gradlew publishReleasePublicationToDemoRepository
+          fi
 
       - name: Upload repository
         uses: actions/upload-artifact@v6
