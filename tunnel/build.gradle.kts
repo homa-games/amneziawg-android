@@ -4,7 +4,11 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.nio.charset.StandardCharsets
 
 val packageName: String = providers.gradleProperty("amneziawgPackageName").get()
-val tunnelVersion: String = providers.gradleProperty("tunnelVersion").get()
+val tunnelVersion: String = if (project.hasProperty("TUNNEL_VERSION")) {
+    project.property("TUNNEL_VERSION") as String
+} else {
+    providers.gradleProperty("tunnelVersion").get()
+}
 
 plugins {
     alias(libs.plugins.android.library)
