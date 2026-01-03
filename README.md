@@ -16,7 +16,7 @@ macOS users may need [flock(1)](https://github.com/discoteq/flock).
 
 Publish artifacts to demorepo
 ```
-$ ./gradlew publishReleaseToDemoRepository
+$ ./gradlew publishReleasePublicationToDemoRepository
 ```
 
 Add repository to project

@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import java.nio.charset.StandardCharsets
 
 val packageName: String = providers.gradleProperty("amneziawgPackageName").get()
 val tunnelVersion: String = providers.gradleProperty("tunnelVersion").get()
@@ -91,4 +92,27 @@ publishing {
             url = uri("../demorepo")
         }
     }
+}
+
+tasks.register("syncReadme") {
+    doLast {
+        val readmeFile = file("../README.md")
+        val tunnelVersion = providers.gradleProperty("tunnelVersion").get()
+
+        val updatedLines = readmeFile.readLines().map { line ->
+            if (line.startsWith("implementation")) {
+                "implementation(\"org.amnezia.awg:awg-tunnel:${tunnelVersion}\")"
+            } else {
+                line
+            }
+        }
+        readmeFile.writeText(
+            updatedLines.joinToString(separator = "\r\n") + "\r\n",
+            StandardCharsets.UTF_8
+        )
+    }
+}
+
+tasks.named("publishReleasePublicationToDemoRepository") {
+    dependsOn(tasks.named("syncReadme"))
 }
