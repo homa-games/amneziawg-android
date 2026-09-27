@@ -5,9 +5,12 @@
 cmake_minimum_required(VERSION 3.4.1)
 project("AmneziaWG")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+set(ANDROID_PACKED_RELOCATIONS_LINKER_FLAG "-Wl,--pack-dyn-relocs=android")
 add_link_options(LINKER:--build-id=none)
 add_link_options(-Wl,-z,max-page-size=16384)
+add_link_options(${ANDROID_PACKED_RELOCATIONS_LINKER_FLAG})
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,max-page-size=16384")
+set(WG_GO_LDFLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${ANDROID_PACKED_RELOCATIONS_LINKER_FLAG}")
 add_compile_options(-Wall -Werror)
 
 add_executable(libwg-quick.so amneziawg-tools/src/wg-quick/android.c ndk-compat/compat.c)
@@ -25,7 +28,7 @@ add_custom_target(libwg-go.so WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib
     GRADLE_USER_HOME=${GRADLE_USER_HOME}
     CC=${CMAKE_C_COMPILER}
     CFLAGS=${CMAKE_C_FLAGS}
-    LDFLAGS=${CMAKE_SHARED_LINKER_FLAGS}
+    LDFLAGS=${WG_GO_LDFLAGS}
     SYSROOT=${CMAKE_SYSROOT}
     TARGET=${CMAKE_C_COMPILER_TARGET}
     DESTDIR=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
