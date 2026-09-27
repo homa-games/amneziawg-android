@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.bundling.AbstractArchiveTask
 import java.nio.charset.StandardCharsets
 
 val packageName: String = providers.gradleProperty("amneziawgPackageName").get()
@@ -77,6 +78,11 @@ dependencies {
     implementation(libs.androidx.collection)
     compileOnly(libs.jsr305)
     testImplementation(libs.junit)
+}
+
+tasks.withType<AbstractArchiveTask>().configureEach {
+    isPreserveFileTimestamps = false
+    isReproducibleFileOrder = true
 }
 
 publishing {
