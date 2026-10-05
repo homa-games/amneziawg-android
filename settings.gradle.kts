@@ -30,5 +30,4 @@ configure<SettingsExtension> {
     buildToolsVersion = "36.1.0"
     compileSdk = 36
     minSdk = 24
-    ndkVersion = "29.0.14206865"
 }
