@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.system.OsConstants;
+import android.util.ArraySet;
 import android.util.Log;
 
 import org.amnezia.awg.backend.BackendException.Reason;
@@ -33,7 +34,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import androidx.annotation.Nullable;
-import androidx.collection.ArraySet;
 
 import static org.amnezia.awg.GoBackend.*;
 

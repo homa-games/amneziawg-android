@@ -75,8 +75,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.annotation)
-    implementation(libs.androidx.collection)
+    compileOnly(libs.androidx.annotation)
     compileOnly(libs.jsr305)
     testImplementation(libs.junit)
 }

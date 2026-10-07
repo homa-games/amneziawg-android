@@ -2,8 +2,8 @@
 agp = "9.3.1"
 
 [libraries]
-androidx-annotation = "androidx.annotation:annotation:1.7.1"
-androidx-collection = "androidx.collection:collection:1.4.0"
+# Keep the last annotation version without a Kotlin stdlib dependency.
+androidx-annotation = "androidx.annotation:annotation:1.3.0"
 jsr305 = "com.google.code.findbugs:jsr305:3.0.2"
 junit = "junit:junit:4.13.2"
 
