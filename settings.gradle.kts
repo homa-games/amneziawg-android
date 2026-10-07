@@ -24,7 +24,6 @@ plugins {
 rootProject.name = "amneziawg-android"
 
 include(":tunnel")
-include(":ui")
 
 configure<SettingsExtension> {
     buildToolsVersion = "36.1.0"

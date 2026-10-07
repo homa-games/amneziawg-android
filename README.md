@@ -21,7 +21,7 @@ $ ./gradlew publishReleasePublicationToDemoRepository
 
 Add repository to project
 ```
-maven("https://github.com/homa-games/amneziawg-android/raw/repository/demorepo")
+maven("https://raw.githubusercontent.com/homa-games/amneziawg-android/repository/demorepo")
 ```
 
 Declare dependency
@@ -31,5 +31,5 @@ implementation("org.amnezia.awg:awg-tunnel:3.1.20260813")
 
 Build tunnel library
 ```
-$ ./gradlew tunnel:assembleRelease
+$ ./gradlew assembleRelease
 ```
