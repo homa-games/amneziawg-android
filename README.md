@@ -5,7 +5,7 @@ This project forked from amnezia-vpn/amneziawg-android
 ```
 $ git clone --recurse-submodules git@github.com:homa-games/amneziawg-android.git
 $ cd amneziawg-android
-$ ./gradlew assembleRelease
+$ ./gradlew :tunnel:assembleRelease
 ```
 
 macOS users may need [flock(1)](https://github.com/discoteq/flock).
@@ -16,7 +16,7 @@ macOS users may need [flock(1)](https://github.com/discoteq/flock).
 
 Publish artifacts to demorepo
 ```
-$ ./gradlew publishReleasePublicationToDemoRepository
+$ ./gradlew :tunnel:publishReleasePublicationToDemoRepository
 ```
 
 Add repository to project
@@ -31,5 +31,5 @@ implementation("org.amnezia.awg:awg-tunnel:3.1.20260813")
 
 Build tunnel library
 ```
-$ ./gradlew tunnel:assembleRelease
+$ ./gradlew :tunnel:assembleRelease
 ```
