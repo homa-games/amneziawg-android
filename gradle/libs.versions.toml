@@ -1,11 +1,17 @@
 [versions]
 agp = "9.3.1"
+compileSdk = "36"
+minSdk = "24"
+buildTools = "36.1.0"
+ndk = "29.0.14206865"
+annotation = "1.3.0" # Keep the last annotation version without a Kotlin stdlib dependency.
+jsr305 = "3.0.2"
+junit = "4.13.2"
 
 [libraries]
-# Keep the last annotation version without a Kotlin stdlib dependency.
-androidx-annotation = "androidx.annotation:annotation:1.3.0"
-jsr305 = "com.google.code.findbugs:jsr305:3.0.2"
-junit = "junit:junit:4.13.2"
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
+jsr305 = { module = "com.google.code.findbugs:jsr305", version.ref = "jsr305" }
+junit = { module = "junit:junit", version.ref = "junit" }
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
