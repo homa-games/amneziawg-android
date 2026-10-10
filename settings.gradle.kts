@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.SettingsExtension
-
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -17,16 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-plugins {
-    id("com.android.settings") version "9.3.1"
-}
-
 rootProject.name = "amneziawg-android"
 
 include(":tunnel")
-
-configure<SettingsExtension> {
-    buildToolsVersion = "36.1.0"
-    compileSdk = 36
-    minSdk = 24
-}
