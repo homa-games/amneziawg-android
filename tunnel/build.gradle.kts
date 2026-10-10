@@ -18,6 +18,7 @@ plugins {
 }
 
 android {
+    enableKotlin = false
     compileSdk = libs.versions.compileSdk.get().toInt()
     buildToolsVersion = libs.versions.buildTools.get()
     ndkVersion = libs.versions.ndk.get()
