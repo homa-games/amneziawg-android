@@ -1,5 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.android.build.api.artifact.SingleArtifact
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
 import java.nio.charset.StandardCharsets
@@ -60,16 +61,29 @@ android {
         disable += "LongLogTag"
         disable += "NewApi"
     }
-    // https://arulmani33.medium.com/change-apk-name-in-android-gradle-8-1-kts-97c55fcaaa27
-    libraryVariants.all {
-        outputs.map { o -> o as com.android.build.gradle.internal.api.LibraryVariantOutputImpl }
-            .forEach { f ->
-                f.outputFileName = "awg-tunnel-${tunnelVersion}-${buildType.name}.aar"
-            }
-    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
+        }
+    }
+}
+
+androidComponents {
+    onVariants { variant ->
+        val variantName = variant.name
+        val taskSuffix = variantName.replaceFirstChar { it.uppercaseChar() }
+        val aarFile = variant.artifacts.get(SingleArtifact.AAR)
+        val aarFileName = "awg-tunnel-${tunnelVersion}-${variantName}.aar"
+        val exportAar = tasks.register<Sync>("export${taskSuffix}Aar") {
+            group = "build"
+            description = "Exports the ${variantName} AAR with its version in the filename."
+            inputs.property("aarFileName", aarFileName)
+            from(aarFile)
+            into(layout.buildDirectory.dir("outputs/aar/${variantName}"))
+            rename { aarFileName }
+        }
+        tasks.named { it == "assemble${taskSuffix}" }.configureEach {
+            dependsOn(exportAar)
         }
     }
 }

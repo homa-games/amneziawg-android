@@ -40,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: library
-          path: tunnel/build/outputs/aar/*.aar
+          path: tunnel/build/outputs/aar/release/*.aar
