@@ -26,7 +26,7 @@ maven("https://raw.githubusercontent.com/homa-games/amneziawg-android/repository
 
 Declare dependency
 ```
-implementation("org.amnezia.awg:awg-tunnel:3.1.20260813")
+implementation("org.amnezia.awg:awg-tunnel:3.1.20261017")
 ```
 
 Build tunnel library
